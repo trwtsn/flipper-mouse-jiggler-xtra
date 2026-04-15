@@ -20,6 +20,7 @@ typedef enum {
     ModeLong,
     ModeLongHorizontal,
     ModeLongVertical,
+    ModeDVD,
     ModeChaosLite,
     ModeChaos,
     ModeCount,
@@ -33,6 +34,7 @@ static const char* mode_names[] = {
     "Long",
     "Long Horizontal",
     "Long Vertical",
+    "DVD",
     "Chaos Lite",
     "Chaos",
 };
@@ -44,12 +46,13 @@ typedef struct {
 
 static const JiggleParams mode_params[] = {
     [ModeSimple] = {2, 2},
-    [ModeShort] = {10, 3},
-    [ModeShortHorizontal] = {10, 0},
-    [ModeShortVertical] = {0, 3},
-    [ModeLong] = {20, 5},
-    [ModeLongHorizontal] = {20, 0},
-    [ModeLongVertical] = {0, 5},
+    [ModeShort] = {20, 20},
+    [ModeShortHorizontal] = {50, 0},
+    [ModeShortVertical] = {0, 50},
+    [ModeLong] = {200, 80},
+    [ModeLongHorizontal] = {200, 0},
+    [ModeLongVertical] = {0, 200},
+    [ModeDVD] = {0, 0},
     [ModeChaosLite] = {0, 0},
     [ModeChaos] = {0, 0},
 };
@@ -63,6 +66,11 @@ typedef struct {
     JiggleMode mode;
     bool direction;
     ViewId current_view;
+    // DVD bounce state
+    int16_t dvd_x;
+    int16_t dvd_y;
+    int8_t dvd_vx;
+    int8_t dvd_vy;
 } MouseJigglerApp;
 
 typedef struct {
@@ -94,6 +102,20 @@ static void jiggle_timer_callback(void* ctx) {
 
     int8_t dx, dy;
 
+    if(app->mode == ModeDVD) {
+        int16_t next_x = app->dvd_x + app->dvd_vx;
+        int16_t next_y = app->dvd_y + app->dvd_vy;
+
+        if(next_x <= 0 || next_x >= 720) app->dvd_vx = -app->dvd_vx;
+        if(next_y <= 0 || next_y >= 480) app->dvd_vy = -app->dvd_vy;
+
+        app->dvd_x += app->dvd_vx;
+        app->dvd_y += app->dvd_vy;
+
+        furi_hal_hid_mouse_move(app->dvd_vx, app->dvd_vy);
+        return;
+    }
+
     if(app->mode == ModeChaos) {
         dx = (int8_t)((furi_hal_random_get() % 255) - 127);
         dy = (int8_t)((furi_hal_random_get() % 255) - 127);
@@ -115,6 +137,13 @@ static void menu_callback(void* ctx, uint32_t index) {
     app->mode = (JiggleMode)index;
     app->direction = false;
 
+    if(app->mode == ModeDVD) {
+        app->dvd_x = 360;
+        app->dvd_y = 240;
+        app->dvd_vx = 3;
+        app->dvd_vy = 2;
+    }
+
     with_view_model(
         app->jiggle_view,
         JiggleViewModel * vm,
@@ -126,6 +155,8 @@ static void menu_callback(void* ctx, uint32_t index) {
         tick_interval = furi_kernel_get_tick_frequency() / 20;
     } else if(app->mode == ModeChaosLite) {
         tick_interval = furi_kernel_get_tick_frequency() / 6;
+    } else if(app->mode == ModeDVD) {
+        tick_interval = furi_kernel_get_tick_frequency() / 30;
     } else {
         tick_interval = furi_kernel_get_tick_frequency();
     }
