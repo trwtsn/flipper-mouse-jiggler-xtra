@@ -1,6 +1,6 @@
 App(
-    appid="mouse_jiggler",
-    name="Mouse Jiggler",
+    appid="mouse_jiggler_simple",
+    name="Mouse Jiggler Simple",
     apptype=FlipperAppType.PLUGIN,
     entry_point="mouse_jiggler_app",
     cdefines=["APP_MOUSEJIGGLER"],
