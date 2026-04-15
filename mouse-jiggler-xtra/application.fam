@@ -1,0 +1,13 @@
+App(
+    appid="mouse_jiggler_xtra",
+    name="Mouse Jiggler Xtra",
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="mouse_jiggler_xtra_app",
+    fap_category="USB",
+    cdefines=["APP_MOUSEJIGGLER_XTRA"],
+    requires=[
+        "gui",
+    ],
+    stack_size=2 * 1024,
+    order=60,
+)
