@@ -140,8 +140,8 @@ static void menu_callback(void* ctx, uint32_t index) {
     if(app->mode == ModeDVD) {
         app->dvd_x = 360;
         app->dvd_y = 240;
-        app->dvd_vx = 3;
-        app->dvd_vy = 2;
+        app->dvd_vx = 4;
+        app->dvd_vy = 3;
     }
 
     with_view_model(
