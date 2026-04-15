@@ -3,8 +3,8 @@
 #include <gui/gui.h>
 #include <input/input.h>
 
-#define MOUSE_MOVE_SHORT 5
-#define MOUSE_MOVE_LONG 20
+#define MOUSE_MOVE_SHORT 1
+#define MOUSE_MOVE_LONG 1
 
 typedef enum {
     EventTypeInput,
