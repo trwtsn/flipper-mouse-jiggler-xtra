@@ -20,6 +20,7 @@ typedef enum {
     ModeLong,
     ModeLongHorizontal,
     ModeLongVertical,
+    ModeChaosLite,
     ModeChaos,
     ModeCount,
 } JiggleMode;
@@ -32,6 +33,7 @@ static const char* mode_names[] = {
     "Long",
     "Long Horizontal",
     "Long Vertical",
+    "Chaos Lite",
     "Chaos",
 };
 
@@ -48,6 +50,7 @@ static const JiggleParams mode_params[] = {
     [ModeLong] = {20, 5},
     [ModeLongHorizontal] = {20, 0},
     [ModeLongVertical] = {0, 5},
+    [ModeChaosLite] = {0, 0},
     [ModeChaos] = {0, 0},
 };
 
@@ -58,7 +61,8 @@ typedef struct {
     FuriTimer* timer;
     FuriHalUsbInterface* usb_mode_prev;
     JiggleMode mode;
-    bool direction; // false = forward, true = reverse
+    bool direction;
+    ViewId current_view;
 } MouseJigglerApp;
 
 typedef struct {
@@ -93,6 +97,9 @@ static void jiggle_timer_callback(void* ctx) {
     if(app->mode == ModeChaos) {
         dx = (int8_t)((furi_hal_random_get() % 255) - 127);
         dy = (int8_t)((furi_hal_random_get() % 255) - 127);
+    } else if(app->mode == ModeChaosLite) {
+        dx = (int8_t)((furi_hal_random_get() % 77) - 38);
+        dy = (int8_t)((furi_hal_random_get() % 77) - 38);
     } else {
         JiggleParams p = mode_params[app->mode];
         dx = app->direction ? (int8_t)(-p.dx) : p.dx;
@@ -114,18 +121,28 @@ static void menu_callback(void* ctx, uint32_t index) {
         { vm->mode = app->mode; },
         true);
 
-    uint32_t tick_interval = (app->mode == ModeChaos) ?
-        (furi_kernel_get_tick_frequency() / 20) :
-        furi_kernel_get_tick_frequency();
+    uint32_t tick_interval;
+    if(app->mode == ModeChaos) {
+        tick_interval = furi_kernel_get_tick_frequency() / 20;
+    } else if(app->mode == ModeChaosLite) {
+        tick_interval = furi_kernel_get_tick_frequency() / 6;
+    } else {
+        tick_interval = furi_kernel_get_tick_frequency();
+    }
     furi_timer_start(app->timer, tick_interval);
+    app->current_view = ViewIdJiggle;
     view_dispatcher_switch_to_view(app->view_dispatcher, ViewIdJiggle);
 }
 
 static bool nav_callback(void* ctx) {
     MouseJigglerApp* app = ctx;
-    furi_timer_stop(app->timer);
-    view_dispatcher_switch_to_view(app->view_dispatcher, ViewIdMenu);
-    return true;
+    if(app->current_view == ViewIdJiggle) {
+        furi_timer_stop(app->timer);
+        app->current_view = ViewIdMenu;
+        view_dispatcher_switch_to_view(app->view_dispatcher, ViewIdMenu);
+        return true;
+    }
+    return false;
 }
 
 static bool custom_event_callback(void* ctx, uint32_t event) {
@@ -140,6 +157,7 @@ int32_t mouse_jiggler_xtra_app(void* p) {
     MouseJigglerApp* app = malloc(sizeof(MouseJigglerApp));
     app->direction = false;
     app->mode = ModeSimple;
+    app->current_view = ViewIdMenu;
 
     app->usb_mode_prev = furi_hal_usb_get_config();
     furi_check(furi_hal_usb_set_config(&usb_hid, NULL) == true);
