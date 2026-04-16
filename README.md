@@ -13,14 +13,19 @@ A Flipper Zero USB mouse jiggler with selectable jiggle modes.
 | Long | 200px x, 80px y | Larger diagonal movement |
 | Long Horizontal | 200px x | Wide horizontal sweep |
 | Long Vertical | 200px y | Tall vertical sweep |
-| DVD | 3px x, 2px y @ 30fps | DVD logo style drift/bouce in a 720x480 area of the screen |
+| DVD | 4px x, 3px y @ 30fps | DVD logo style drift/bounce in a 720x480 area of the screen |
 | Chaos Lite | random (-38 to 38) @ 6/sec | Moderate random movement |
 | Chaos | random (-127 to 127) @ 20/sec | Full-range random movement |
 
-## Demo Gifs
-Simple Modes
+## Demo
+
+### Simple Modes
 ![Simple Modes](https://raw.githubusercontent.com/trwtsn/flipper-mouse-jiggler-xtra/refs/heads/master/mouse-jiggler-xtra/resources/gif/Demo_Simple_Modes.gif)
+
+### DVD Mode
 ![DVD Mode](https://raw.githubusercontent.com/trwtsn/flipper-mouse-jiggler-xtra/refs/heads/master/mouse-jiggler-xtra/resources/gif/Demo_DVD.gif)
+
+### Chaos Lite
 ![Chaos Lite](https://raw.githubusercontent.com/trwtsn/flipper-mouse-jiggler-xtra/refs/heads/master/mouse-jiggler-xtra/resources/gif/Demo_Chaos_Lite.gif)
 
 
