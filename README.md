@@ -13,7 +13,7 @@ A Flipper Zero USB mouse jiggler with selectable jiggle modes.
 | Long | 200px x, 80px y | Larger diagonal movement |
 | Long Horizontal | 200px x | Wide horizontal sweep |
 | Long Vertical | 200px y | Tall vertical sweep |
-| DVD | 3px x, 2px y @ 30fps | Bouncing DVD logo in a 720x480 virtual box |
+| DVD | 3px x, 2px y @ 30fps | DVD logo style drift/bouce in a 720x480 area of the screen |
 | Chaos Lite | random (-38 to 38) @ 6/sec | Moderate random movement |
 | Chaos | random (-127 to 127) @ 20/sec | Full-range random movement |
 
