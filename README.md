@@ -20,13 +20,13 @@ A Flipper Zero USB mouse jiggler with selectable jiggle modes.
 ## Demo
 
 ### Simple Modes
-![Simple Modes](https://raw.githubusercontent.com/trwtsn/flipper-mouse-jiggler-xtra/refs/heads/master/mouse-jiggler-xtra/resources/gif/Demo_Simple_Modes.gif)
+<img src="https://raw.githubusercontent.com/trwtsn/flipper-mouse-jiggler-xtra/refs/heads/master/mouse-jiggler-xtra/resources/gif/Demo_Simple_Modes.gif" width="200" alt="Simple Modes">
 
 ### DVD Mode
-![DVD Mode](https://raw.githubusercontent.com/trwtsn/flipper-mouse-jiggler-xtra/refs/heads/master/mouse-jiggler-xtra/resources/gif/Demo_DVD.gif)
+<img src="https://raw.githubusercontent.com/trwtsn/flipper-mouse-jiggler-xtra/refs/heads/master/mouse-jiggler-xtra/resources/gif/Demo_DVD.gif" width="200" alt="DVD Mode">
 
 ### Chaos Lite
-![Chaos Lite](https://raw.githubusercontent.com/trwtsn/flipper-mouse-jiggler-xtra/refs/heads/master/mouse-jiggler-xtra/resources/gif/Demo_Chaos_Lite.gif)
+<img src="https://raw.githubusercontent.com/trwtsn/flipper-mouse-jiggler-xtra/refs/heads/master/mouse-jiggler-xtra/resources/gif/Demo_Chaos_Lite.gif" width="200" alt="Chaos Lite">
 
 
 ## Building
