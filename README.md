@@ -17,6 +17,13 @@ A Flipper Zero USB mouse jiggler with selectable jiggle modes.
 | Chaos Lite | random (-38 to 38) @ 6/sec | Moderate random movement |
 | Chaos | random (-127 to 127) @ 20/sec | Full-range random movement |
 
+## Demo Gifs
+Simple Modes
+![Simple Modes](https://raw.githubusercontent.com/trwtsn/flipper-mouse-jiggler-xtra/refs/heads/master/mouse-jiggler-xtra/resources/gif/Demo_Simple_Modes.gif)
+![DVD Mode](https://raw.githubusercontent.com/trwtsn/flipper-mouse-jiggler-xtra/refs/heads/master/mouse-jiggler-xtra/resources/gif/Demo_DVD.gif)
+![Chaos Lite](https://raw.githubusercontent.com/trwtsn/flipper-mouse-jiggler-xtra/refs/heads/master/mouse-jiggler-xtra/resources/gif/Demo_Chaos_Lite.gif)
+
+
 ## Building
 
 Install [ufbt](https://github.com/flipperdevices/flipperzero-ufbt):
